@@ -24,7 +24,7 @@ jobs:
           java-version: '23'
           distribution: 'temurin'
 
-      # 3. Устанавливаем Kotlin Compiler (опционально)
+      # 3. Устанавливаем Kotlin Compiler
       - name: Install Kotlin Compiler
         run: |
           curl -s https://get.sdkman.io | bash
@@ -38,3 +38,10 @@ jobs:
       # 5. Запуск тестов
       - name: Run Tests
         run: ./gradlew test
+
+      # 6. Сохранение результатов тестов (дополнительно)
+      - name: Save test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: build/reports/tests/test
