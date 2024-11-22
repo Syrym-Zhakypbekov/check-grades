@@ -1,0 +1,35 @@
+name: Build and Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Клонирование репозитория
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # 2. Установка JDK
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      # 3. Сборка и тестирование
+      - name: Build with Gradle
+        run: |
+          ./gradlew clean build
+
+      # 4. Запуск тестов
+      - name: Run Tests
+        run: |
+          ./gradlew test
